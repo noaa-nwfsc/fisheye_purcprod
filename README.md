@@ -10,12 +10,6 @@ fisheries**
 
 ## 🚀 Launch the app here: [link]()
 
-<!-- badges: start -->
-
-[![R-CMD-check](https://github.com/ramhunte/purchprod/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ramhunte/purchprod/actions/workflows/R-CMD-check.yaml)
-
-<!-- badges: end -->
-
 ------------------------------------------------------------------------
 
 ## 🧭 About the app

@@ -584,7 +584,7 @@ app_server <- function(input, output, session) {
   # download data button
   output$downloadData <- downloadHandler(
     filename = function() {
-      paste("purchprod", input$tab_top, "data.csv", sep = "_") # title for csv
+      paste("purcprod", input$tab_top, "data.csv", sep = "_") # title for csv
     },
     content = function(file) {
       # conditional table render depending on tab_top selection

@@ -20,18 +20,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-# purchprod
+# purcprod
 
 **An app built by NOAA for exploring economic data of US West Coast
 fisheries**
 
 ## 🚀 Launch the app here: [link]()
 
-<!-- badges: start -->
-
-[![R-CMD-check](https://github.com/ramhunte/purchprod/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ramhunte/purchprod/actions/workflows/R-CMD-check.yaml)
-
-<!-- badges: end -->
 
 ------------------------------------------------------------------------
 
@@ -144,7 +139,7 @@ development.
 │   ├── figures
 │   │   └── nmfs_logo.png
 │   └── run_app.Rd
-├── purchprod.Rproj
+├── fisheye_purcprod.Rproj
 ├── renv # managed by {Renv} to isolate package dependencies and create reproducible environment
 │   ├── activate.R
 │   ├── settings.json
