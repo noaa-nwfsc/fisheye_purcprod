@@ -181,7 +181,7 @@ app_ui <- function(request) {
 
       bslib::nav_item(
         tags$a(
-          href = "https://connect.fisheries.noaa.gov/fisheye/fisheyelandingpage.html",
+          href = "https://connect.fisheries.noaa.gov/fisheye/",
           target = "_blank",  # open in new tab
           class = "nav-link", # required for navbar styling
           "FISHEyE Homepage"
