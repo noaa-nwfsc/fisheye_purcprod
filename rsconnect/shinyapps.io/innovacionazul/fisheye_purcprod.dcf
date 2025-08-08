@@ -1,0 +1,10 @@
+name: fisheye_purcprod
+title:
+username: innovacionazul
+account: innovacionazul
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15179419
+bundleId: 10746782
+url: https://innovacionazul.shinyapps.io/fisheye_purcprod/
+version: 1
