@@ -175,6 +175,19 @@ app_ui <- function(request) {
         )
       ), # END Contact Us nav_panel
 
+      #################################################################################
+      ################################ Fisheye Homepage ###############################
+      #################################################################################
+
+      bslib::nav_item(
+        tags$a(
+          href = "https://connect.fisheries.noaa.gov/fisheye/fisheyelandingpage.html",
+          target = "_blank",  # open in new tab
+          class = "nav-link", # required for navbar styling
+          "FISHEyE Homepage"
+        )
+      ), # END Fisheye Homepage Link
+
       footer = footer() # footer
     ) # END page_navbar
   ) # END tagList
