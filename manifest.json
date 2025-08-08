@@ -2838,10 +2838,10 @@
       "checksum": "637d12342b49a2415245aa051151a76c"
     },
     ".Rprofile": {
-      "checksum": "41eb2d2207aa2b56b5dbd071475f2edf"
+      "checksum": "dfb359b0b9e6cd0df3bc509a31ca0518"
     },
     "app.R": {
-      "checksum": "fcc64d8da8057a53bd4aec49a5f0dea0"
+      "checksum": "640b2124920e931f7ecb5b26fc3b1800"
     },
     "data-raw/data_processing.R": {
       "checksum": "903aa813106bed7f10cdac780e99396b"
@@ -2883,7 +2883,7 @@
       "checksum": "39e89392dfa2c3cb2c3438d6bda9806a"
     },
     "R/app_ui.R": {
-      "checksum": "fcd436ded82c198fb8fcfc52ce17461c"
+      "checksum": "8385c88c99ad55a0a0977fcd1836e269"
     },
     "R/fct_footer.R": {
       "checksum": "f7d86ca16f94acf67b0583a74f2d0afd"
