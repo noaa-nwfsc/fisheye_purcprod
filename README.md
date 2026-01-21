@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- You'll still need to render `README.Rmd` regularly, to keep `README.md` -->
+
 <!-- up-to-date. `devtools::build_readme()` is handy for this. -->
 
 # purcprod
@@ -29,19 +31,25 @@ the West Coast Groundfish Trawl Catch Share Program.
 
 This app was built using the `{golem}` framework, which structures Shiny
 applications as R packages to support modular design, easier testing,
-and long-term maintainability and collaboration. The app’s
-components—UI, server logic, and supporting functions—are organized into
-clearly separated scripts (`fct_*.R`, `utils_*.R`) and modules
-(`mod_*.R`), making the codebase easier to navigate, test, and extend.
+and long term maintainability/collaboration. The app’s components
+scripts are as follows:
+
+- `fct_*.R` and `utils_*.R` contain functions for the UI of the app
+  including figures, widgets, layouts, ets.
+
+- `mod_*.R` scripts contain UI and server code to a specific tab or
+  piece of the app, making the codebase easier to navigate and work on
+
 Configuration settings are managed through the `golem-config.yml` file,
-which centralizes environment-specific options. To ensure
-reproducibility across systems and time, the project also uses `{renv}`
-to lock package versions. The `renv.lock` file captures the exact
-versions of all packages used during development, allowing collaborators
-to recreate the same environment with `renv::restore()`. If contributing
-to this application, please follow the `{golem}` and `{renv}`
-conventions to maintain consistency and reliability throughout
-development.
+which centralizes environment specific options. The project also uses
+`{renv}` to lock package versions and make development more reliabel
+over time. The `renv.lock` file captures the exact versions of all
+packages used during development. This allows collaborators to recreate
+the same environment with `renv::restore()`. If contributing to this
+application, please follow the `{golem}` and `{renv}` conventions to
+maintain consistency and reliability throughout development. If any
+issues arise, please reach out to me at
+<a href="mailto:raymond.hunter@noaa.gov" class="email"><strong><raymond.hunter@noaa.gov></strong></a>
 
 ------------------------------------------------------------------------
 
@@ -65,70 +73,72 @@ development.
 - Filter by a metric, statistic, region, processor type, and more
 - View output as interactive time series plots or downloadable tables
 
-### **Information**
-
-- Learn how the app works and understand key terms and filters
-
-### **Contact us**
-
-- Get in touch with NOAA developers or app managers for support or
-  suggestions
-
-<!-- -->
+### **Directory Tree**
 
     .
-    ├── DESCRIPTION 
-    ├── LICENSE 
-    ├── LICENSE.md 
-    ├── NAMESPACE 
-    ├── R # R scripts including UI, server, modules (mod_*.R), functions (fct_*.R, utils_ui.R), and app configuration.
-    │   ├── app_config.R # reads and applies global settings from YAML config
+    ├── app.R
+    ├── data-raw
+    │   ├── data_processing.R
+    │   └── purcprod_data.RData
+    ├── DESCRIPTION
+    ├── dev
+    │   ├── 01_start.R
+    │   ├── 02_dev.R
+    │   ├── 03_deploy.R
+    │   ├── config_attachment.yaml
+    │   └── run_dev.R
+    ├── fisheye_purcprod.Rproj
+    ├── inst
+    │   ├── app
+    │   │   ├── text
+    │   │   │   ├── contact.md
+    │   │   │   └── info.md
+    │   │   └── www
+    │   │       ├── noaa_header.png
+    │   │       └── styles.css
+    │   ├── golem-config.yml
+    │   └── WORDLIST
+    ├── LICENSE
+    ├── LICENSE.md
+    ├── man
+    │   ├── figures
+    │   │   └── nmfs_logo.png
+    │   └── run_app.Rd
+    ├── manifest.json
+    ├── NAMESPACE
+    ├── R
+    │   ├── app_config.R
     │   ├── app_server.R
     │   ├── app_ui.R
-    │   ├── fct_footer.R # function that creates the footer
-    │   ├── fct_header.R # function that creates the header
-    │   ├── fct_plot.R # functions that create plots
-    │   ├── mod_other_tabs.R 
+    │   ├── fct_footer.R
+    │   ├── fct_header.R
+    │   ├── fct_plot.R
+    │   ├── fct_reactive_dfs.R
+    │   ├── mod_other_tabs.R
     │   ├── mod_overview.R
     │   ├── mod_prod_type.R
     │   ├── mod_specs.R
     │   ├── mod_specs_tabs.R
     │   ├── mod_summary.R
     │   ├── run_app.R
-    │   ├── sysdata.rda # internal data used by app but not exported
-    │   └── utils_ui.R # helper functions that are mostly reusable (used in the UI)
-    ├── README.Rmd
+    │   ├── sysdata.rda
+    │   ├── utils_ui.R
+    │   └── _disable_autoload.R
     ├── README.md
-    ├── data-raw # contains data processing script and raw data (for development only)
-    │   ├── data_processing.R
-    │   └── mini_purcprod.RDS
-    ├── dev # development scripts to set up, build, and deploy the app (made by {golem})
-    │   ├── 01_start.R
-    │   ├── 02_dev.R
-    │   ├── 03_deploy.R
-    │   ├── config_attachment.yaml
-    │   └── run_dev.R
-    ├── inst # non-code files needed by the app
-    │   ├── WORDLIST
-    │   ├── app # Contains markdown files, static images, and CSS file
-    │   │   ├── text # markdown files for text on "Information" and "Contact Us" pages
-    │   │   │   ├── contact.md
-    │   │   │   └── info.md
-    │   │   └── www # header image and CSS file
-    │   │       ├── noaa_header.png
-    │   │       └── styles.css
-    │   └── golem-config.yml # global configuration options from {golem} framework
-    ├── man # includes Rd documentation and README figure assets
-    │   ├── figures
-    │   │   └── nmfs_logo.png
-    │   └── run_app.Rd
-    ├── purcprod.Rproj
-    ├── renv # managed by {Renv} to isolate package dependencies and create reproducible environment
+    ├── README.Rmd
+    ├── renv
     │   ├── activate.R
     │   ├── settings.json
     │   └── staging
-    ├── renv.lock # specifies dependencies and versions for development and time of of deployment
-    └── tests # tests to make sure app is functioning as intended using {testthat}
+    ├── renv.lock
+    ├── rsconnect
+    │   ├── shinyapps.io
+    │   │   └── innovacionazul
+    │   │       └── fisheye_purcprod.dcf
+    │   └── test-connect.fisheries.noaa.gov
+    │       └── erin.steiner
+    │           └── west_coast_purchase_and_production.dcf
+    └── tests
         ├── spelling.R
         ├── testthat
         │   ├── test-app.R
@@ -148,6 +158,22 @@ development.
 The app uses data collected annually from participants in the West Coast
 Groundfish Trawl Fishery. As of **April 2025**, the app contains data
 through the **2023 calendar year**.
+
+**UPDATING THE DATA:** The app data should be updated annually as new
+data becomes available. To update the data, please follow these steps:
+
+1)  Obtain the latest `purcprod_data.RData` file from
+    `fisheye_dataprep/dataprep_purcprod` repo and move it into the
+    `data-raw` folder of this repo.
+
+2)  Open the `data_processing.R` script in the `data-raw` folder and run
+    the script to process the new data and create updated internal data
+    files. Make sure the data is loaded and the `usethis::use_data()`
+    function is called to save the processed data in the app. This step
+    is critical to ensure new data is properly integrated into the app.
+
+3)  Re-run app to verify everything is working as expected with the new
+    data.
 
 Data collection is part of NOAA’s [Economic Data Collection
 Program](https://www.fisheries.noaa.gov/west-coast/science-data/economic-data-collection-west-coast-groundfish-trawl-fishery).
