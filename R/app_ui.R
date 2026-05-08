@@ -53,7 +53,10 @@ app_ui <- function(request) {
             width = 500,
             # START "Metric" nav_panel
 
-            div("Compare data by:", style = "margin-bottom: 0.5rem; font-size: 1.5rem;"),
+            div(
+              "Compare data by:",
+              style = "margin-bottom: 0.5rem; font-size: 1.5rem;"
+            ),
 
             bslib::navset_card_pill(
               ########################### Top nav_panels ######################################
@@ -102,7 +105,7 @@ app_ui <- function(request) {
               inputID = "deflInput",
               label = "Deflator Year",
               choices = unique(met_prac$year),
-              selected = 2023,
+              selected = 2024,
               width = "130px",
               options = list(`style` = "btn-year1")
             ),
@@ -120,17 +123,26 @@ app_ui <- function(request) {
             bslib::nav_panel(
               title = "Plot",
               class = "custom-card",
-                plotOutput("exp_plot_ui") |>
-                shinycssloaders::withSpinner(type = 4, color = pal[[1]], size = 1) |>
-                bslib::as_fill_carrier()),
+              plotOutput("exp_plot_ui") |>
+                shinycssloaders::withSpinner(
+                  type = 4,
+                  color = pal[[1]],
+                  size = 1
+                ) |>
+                bslib::as_fill_carrier()
+            ),
 
             # START Table nav_panel
             bslib::nav_panel(
               "Table",
               class = "custom-card",
-                # adding a cool loader
-                DT::DTOutput("table") |>
-                shinycssloaders::withSpinner(type = 4, color = pal[[1]], size = 1)
+              # adding a cool loader
+              DT::DTOutput("table") |>
+                shinycssloaders::withSpinner(
+                  type = 4,
+                  color = pal[[1]],
+                  size = 1
+                )
             ) # END  Table nav_panel
           ) # END main panel navset_card_pill
         ) # END page_sidebar
@@ -147,10 +159,13 @@ app_ui <- function(request) {
           class = "scrollable-markdown",
           fluidRow(
             column(2),
-            column(8, bslib::card(
-              style = "background-color: #89b5c7; color: #1c4252;",
-              shiny::includeMarkdown(app_sys("app/text/info.md")))
-              ),
+            column(
+              8,
+              bslib::card(
+                style = "background-color: #89b5c7; color: #1c4252;",
+                shiny::includeMarkdown(app_sys("app/text/info.md"))
+              )
+            ),
             column(2)
           )
         )
@@ -167,9 +182,13 @@ app_ui <- function(request) {
           class = "scrollable-markdown",
           fluidRow(
             column(2),
-            column(8, bslib::card(
-              style = "background-color: #89b5c7; color: #1c4252;",
-              includeMarkdown(app_sys("app/text/contact.md")))),
+            column(
+              8,
+              bslib::card(
+                style = "background-color: #89b5c7; color: #1c4252;",
+                includeMarkdown(app_sys("app/text/contact.md"))
+              )
+            ),
             column(2)
           )
         )
@@ -182,7 +201,7 @@ app_ui <- function(request) {
       bslib::nav_item(
         tags$a(
           href = "https://connect.fisheries.noaa.gov/fisheye/",
-          target = "_blank",  # open in new tab
+          target = "_blank", # open in new tab
           class = "nav-link", # required for navbar styling
           "FISHEyE Homepage"
         )

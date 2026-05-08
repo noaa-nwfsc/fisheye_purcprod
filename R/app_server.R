@@ -49,7 +49,7 @@ app_server <- function(input, output, session) {
   defl_val <- reactive({
     gdp_defl |>
       dplyr::filter(.data$year == input$deflInput) |>
-      dplyr::pull(.data$defl)
+      dplyr::pull(.data$DEFL)
   })
 
   ############################# "Metric" tab: reactive data frame  #################################
@@ -86,7 +86,7 @@ app_server <- function(input, output, session) {
                 "Purchase price (per lb)",
                 "Purchase cost"
               ) ~
-              .data$value * defl_val() / .data$defl,
+              .data$value * defl_val() / .data$DEFL,
 
             # for metrics that dont have price involved
             TRUE ~ .data$value
@@ -139,7 +139,7 @@ app_server <- function(input, output, session) {
                 "Purchase price (per lb)",
                 "Purchase cost"
               ) ~
-              .data$value * defl_val() / .data$defl,
+              .data$value * defl_val() / .data$DEFL,
 
             # for metrics that dont have price involved
             TRUE ~ .data$value
@@ -191,7 +191,7 @@ app_server <- function(input, output, session) {
                 "Purchase price (per lb)",
                 "Purchase cost"
               ) ~
-              .data$value * defl_val() / .data$defl,
+              .data$value * defl_val() / .data$DEFL,
 
             # for metrics that dont have price involved
             TRUE ~ .data$value
@@ -253,7 +253,7 @@ app_server <- function(input, output, session) {
                   "Purchase price (per lb)",
                   "Purchase cost"
                 ) ~
-                .data$value * defl_val() / .data$defl,
+                .data$value * defl_val() / .data$DEFL,
 
               # for metrics that dont have price involved
               TRUE ~ .data$value
@@ -300,7 +300,7 @@ app_server <- function(input, output, session) {
                   "Purchase price (per lb)",
                   "Purchase cost"
                 ) ~
-                .data$value * defl_val() / .data$defl,
+                .data$value * defl_val() / .data$DEFL,
 
               # for metrics that dont have price involved
               TRUE ~ .data$value
@@ -347,7 +347,7 @@ app_server <- function(input, output, session) {
                   "Purchase price (per lb)",
                   "Purchase cost"
                 ) ~
-                .data$value * defl_val() / .data$defl,
+                .data$value * defl_val() / .data$DEFL,
 
               # for metrics that dont have price involved
               TRUE ~ .data$value
@@ -386,7 +386,8 @@ app_server <- function(input, output, session) {
           dplyr::filter(
             # "By Species" tab filters
             .data$metric %in% specs_inputs()$metric,
-            .data$production_activity %in% c(specs_inputs()$specs, specs_inputs()$os),
+            .data$production_activity %in%
+              c(specs_inputs()$specs, specs_inputs()$os),
             # bottom tab filters
             .data$type %in% specs_tabs_inputs()$prodtype
           ) |>
@@ -400,7 +401,7 @@ app_server <- function(input, output, session) {
                   "Purchase price (per lb)",
                   "Purchase cost"
                 ) ~
-                .data$value * defl_val() / .data$defl,
+                .data$value * defl_val() / .data$DEFL,
               TRUE ~ .data$value
             ),
             unit_lab = dplyr::case_when(
@@ -430,7 +431,8 @@ app_server <- function(input, output, session) {
           dplyr::filter(
             # "By Species" tab filters
             .data$metric %in% specs_inputs()$metric,
-            .data$production_activity %in% c(specs_inputs()$specs, specs_inputs()$os),
+            .data$production_activity %in%
+              c(specs_inputs()$specs, specs_inputs()$os),
             # bottom tab filters
             .data$characteristic %in% specs_tabs_inputs()$regtype,
             .data$type == "All product types"
@@ -445,7 +447,7 @@ app_server <- function(input, output, session) {
                   "Purchase price (per lb)",
                   "Purchase cost"
                 ) ~
-                .data$value * defl_val() / .data$defl,
+                .data$value * defl_val() / .data$DEFL,
               TRUE ~ .data$value
             ),
             unit_lab = dplyr::case_when(
@@ -475,7 +477,8 @@ app_server <- function(input, output, session) {
           dplyr::filter(
             # "By Species" tab filters
             .data$metric %in% specs_inputs()$metric,
-            .data$production_activity %in% c(specs_inputs()$specs, specs_inputs()$os),
+            .data$production_activity %in%
+              c(specs_inputs()$specs, specs_inputs()$os),
             # bottom tab filters
             .data$characteristic %in% specs_tabs_inputs()$sizetype,
             .data$type == "All product types"
@@ -490,7 +493,7 @@ app_server <- function(input, output, session) {
                   "Purchase price (per lb)",
                   "Purchase cost"
                 ) ~
-                .data$value * defl_val() / .data$defl,
+                .data$value * defl_val() / .data$DEFL,
               TRUE ~ .data$value
             ),
             unit_lab = dplyr::case_when(
@@ -518,20 +521,23 @@ app_server <- function(input, output, session) {
     }
   })
 
-
   ############################################ Plots  ############################################
 
   # this chunk renders the the main panel "Plot" tab plot in the UI
   # conditional render depending on which tab_top is selected
 
   output$exp_plot_ui <- renderPlot({
-######## Metric tab #########
+    ######## Metric tab #########
     if (input$tab_top == "Metric") {
       plot_func(
         # plot functionjnn8888rf
         data = met_plot_df(),
         lab = NULL,
-        group = if (input$tab_bottom == "Production Activities") "production_activity" else "characteristic",
+        group = if (input$tab_bottom == "Production Activities") {
+          "production_activity"
+        } else {
+          "characteristic"
+        },
         facet = "unit_lab" # faceting by unit label
       )
 
@@ -540,7 +546,11 @@ app_server <- function(input, output, session) {
       plot_func(
         data = prod_plot_df(), # same steps as above for "Metric" ^^
         lab = prod_type_inputs()$metric,
-        group = if (input$tab_bottom == "Production Activities") "production_activity" else "characteristic",
+        group = if (input$tab_bottom == "Production Activities") {
+          "production_activity"
+        } else {
+          "characteristic"
+        },
         facet = "unit_lab"
       )
       ######## Species ########
@@ -550,9 +560,14 @@ app_server <- function(input, output, session) {
       plot_func(
         data = specs_plot_df(),
         lab = specs_inputs()$metric,
-        group = if (input$tab_specs_bottom == "Product Type") "type" else "characteristic",
+        group = if (input$tab_specs_bottom == "Product Type") {
+          "type"
+        } else {
+          "characteristic"
+        },
         facet = "unit_lab",
-      )}
+      )
+    }
   })
 
   ############################################ Table  ############################################

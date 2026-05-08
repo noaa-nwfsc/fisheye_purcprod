@@ -31,12 +31,12 @@ mod_overview_ui <- function(id) {
                 strong(em("Select a year")),
                 bsicons::bs_icon("info-circle")
               ),
-              "Select a year in the dropdown (e.g. 2023) you would like to analyze.",
+              "Select a year in the dropdown (e.g. 2024) you would like to analyze.",
               options = list(container = "body"), # optional: avoids overflow issues
               style = "position: absolute; top: 10px; right: 10px; cursor: pointer;"
             ),
             choices = unique(met_prac$year),
-            selected = "2023",
+            selected = "2024",
             options = list(`style` = "btn-year1")
           )
         ), # END div()
@@ -98,7 +98,7 @@ mod_overview_ui <- function(id) {
           p(
             tags$small(
               icon("info-circle", style = "color: #31708f; margin-right: 5px;"),
-              em("All values are reported in 2023 US $")
+              em("All values are reported in 2024 US $")
             )
           )
         ) # END div()
@@ -144,26 +144,29 @@ mod_overview_ui <- function(id) {
         ),
 
         bslib::value_box(
-
           tags$div(
             style = "display: flex; align-items: baseline; gap: 0.4rem;",
-          tags$div(
-            style = "font-weight: 200; font-size: 1.1rem;",
-           "Processors:"),
-          tags$div(
+            tags$div(
+              style = "font-weight: 200; font-size: 1.1rem;",
+              "Processors:"
+            ),
+            tags$div(
               style = "font-weight: 400; font-size: 1.7rem;",
-              textOutput(ns("nproc_text"), container = span))),
+              textOutput(ns("nproc_text"), container = span)
+            )
+          ),
 
           tags$div(
             style = "display: flex; align-items: baseline; gap: 0.4rem;",
             tags$div(
               style = "font-weight: 200; font-size: 1.1rem;",
-              "Buyers:"),
+              "Buyers:"
+            ),
             tags$div(
               style = "font-weight: 400; font-size: 1.7rem;",
-              textOutput(ns("nbuy_text"), container = span))),
-
-
+              textOutput(ns("nbuy_text"), container = span)
+            )
+          ),
 
           value = NULL,
           title = NULL,
@@ -172,7 +175,6 @@ mod_overview_ui <- function(id) {
             fg = pal[["bg_plot"]]
           ),
           showcase = bsicons::bs_icon("hash")
-
         )
       ),
 
@@ -186,35 +188,39 @@ mod_overview_ui <- function(id) {
           bslib::nav_panel(
             "Production Value ($ Millions)",
 
-          bslib::card_body(
-            plotOutput(ns("pv_plot")),
-            class = "p-0" # remove padding)
-          )),
+            bslib::card_body(
+              plotOutput(ns("pv_plot")),
+              class = "p-0" # remove padding)
+            )
+          ),
 
-        # # production weight lollipop graph
-        bslib::nav_panel(
+          # # production weight lollipop graph
+          bslib::nav_panel(
             "Production Weight (lb Millions)",
-          bslib::card_body(
-            plotOutput(ns("pw_plot")),
-            class = "p-0")
-        ),
+            bslib::card_body(
+              plotOutput(ns("pw_plot")),
+              class = "p-0"
+            )
+          ),
 
-        # # Purchase cost lollipop graph
-        bslib::nav_panel(
-          "Purchase Cost ($ Millions)",
-          bslib::card_body(
-            plotOutput(ns("purcv_plot")),
-            class = "p-0")
-        ),
+          # # Purchase cost lollipop graph
+          bslib::nav_panel(
+            "Purchase Cost ($ Millions)",
+            bslib::card_body(
+              plotOutput(ns("purcv_plot")),
+              class = "p-0"
+            )
+          ),
 
-        # # markup lollipop graph
-        bslib::nav_panel(
-          "Purchase Weight (lb Millions)",
-          bslib::card_body(
-            plotOutput(ns("purcw_plot")),
-            class = "p-0")
-        )
-      ),
+          # # markup lollipop graph
+          bslib::nav_panel(
+            "Purchase Weight (lb Millions)",
+            bslib::card_body(
+              plotOutput(ns("purcw_plot")),
+              class = "p-0"
+            )
+          )
+        ),
 
         # heat plot card
         bslib::card(
@@ -415,7 +421,6 @@ mod_overview_server <- function(id) {
         dplyr::pull(.data[["number_of_processors"]])
     })
 
-
     # number of observations output
     output$nbuy_text <- renderText({
       master_df() |>
@@ -486,10 +491,12 @@ mod_overview_server <- function(id) {
     })
 
     # Production weight chart
-    output$cov_plot <- renderPlot({
-      heat_func()
-    },  bg = "transparent")
-
+    output$cov_plot <- renderPlot(
+      {
+        heat_func()
+      },
+      bg = "transparent"
+    )
   })
 }
 

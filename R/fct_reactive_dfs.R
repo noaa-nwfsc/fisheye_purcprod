@@ -23,7 +23,7 @@ filter_and_mutate_specs <- function(
             "Purchase price (per lb)",
             "Purchase value"
           ) ~
-          .data$value * defl_val / .data$defl,
+          .data$value * defl_val / .data$DEFL,
         TRUE ~ .data$value
       ),
       unit_lab = dplyr::case_when(

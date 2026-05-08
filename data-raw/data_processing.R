@@ -1,6 +1,5 @@
 #NOTE: this script does not need to be run again unless there are changes to the raw data in the future
 
-
 # this script processes the raw data stored in the data-raw file
 # it is used for development purposes only. Data is processed and saved in the
 # fisheyedataprep/dataprep_Purcprod repo as "purcprod_data.RData" it is then
@@ -9,7 +8,6 @@
 # the app to use this data internally in the app. This does not need to be run
 # again unless the "purcprod_data.RData" is changed or the color pallette/line types
 # are changed below. It just needs to be run during development unless data changes are made
-
 
 # loading in all data from "fisheyedataprep/dataprep_Purcprod" repo
 # this contains all the data we need to run the app including:
@@ -22,8 +20,7 @@
 # - coverage (EDC coverage rate data)
 # - clean_purcprod (All purchase production app data)
 
-load("data-raw/purcprod_data.RData")
-
+load("~/fisheye_purcprod/data-raw/purcprod_data.RData")
 
 
 ########################### Plot aesthetics #################################
@@ -125,7 +122,6 @@ line_ty <- c(
 
 # this function writes the desired data frames that are used in the app into the 'data' folder
 usethis::use_data(
-
   ########### GDP deflator vals
   gdp_defl,
   ########### for "Summary" tab on the Explore the Data page
