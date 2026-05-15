@@ -55,6 +55,7 @@ app_server <- function(input, output, session) {
   ############################# "Metric" tab: reactive data frame  #################################
 
   met_plot_df <- reactive({
+    #browser()
     req(
       input$tab_top == "Metric",
       input$tab_bottom %in%
@@ -604,11 +605,11 @@ app_server <- function(input, output, session) {
     content = function(file) {
       # conditional table render depending on tab_top selection
       if (input$tab_top == "Metric") {
-        utils::write.csv(met_plot_df(), file)
+        utils::write.csv(process_df(met_plot_df()), file)
       } else if (input$tab_top == "Product Type") {
-        utils::write.csv(prod_type_plot_df(), file)
+        utils::write.csv(process_df(prod_type_plot_df()), file)
       } else if (input$tab_top == "Species") {
-        utils::write.csv(specs_plot_df(), file)
+        utils::write.csv(process(specs_plot_df()), file)
       }
     }
   )

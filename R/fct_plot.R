@@ -21,8 +21,16 @@
 # this function creates lollipop charts that are used on the "Overview" page
 
 lollipop_func <- function(data, year1, range1, range2, upper_lim) {
-
-  data <- subset(data, !production_activity %in% c('All production', 'Groundfish production', 'Non-whiting groundfish', 'Other species production'))
+  data <- subset(
+    data,
+    !production_activity %in%
+      c(
+        'All production',
+        'Groundfish production',
+        'Non-whiting groundfish',
+        'Other species production'
+      )
+  )
   # range label for the graph legend
   # if year range is the same (e.g. 2020-2020 avg., then making it show just 2020)
   range_label <- if (range1 != range2) {
@@ -108,44 +116,56 @@ lollipop_func <- function(data, year1, range1, range2, upper_lim) {
 ############################## Heat Map ##################################
 
 heat_func <- function() {
-ggplot2::ggplot(coverage, aes(x = as.factor(YEAR),
-                           y = EDCSPID, fill = perc_edc)) +
-    ggplot2::geom_tile(color = pal[["bg_plot"]]) +
-  coord_fixed() +
-  theme_minimal() +
-
-  scale_fill_gradient(
-    low = pal[["bg_plot"]], high = pal[["value1"]],  # reverse color direction (red = high values)
-    na.value = "tan",
-    labels = scales::percent
+  ggplot2::ggplot(
+    coverage,
+    aes(x = as.factor(YEAR), y = EDCSPID, fill = perc_edc)
   ) +
+    ggplot2::geom_tile(color = pal[["bg_plot"]]) +
+    coord_fixed() +
+    theme_minimal() +
 
-  guides(fill = guide_colourbar(barheight = 10,
-                                barwidth = .5,
-                                theme = theme(legend.direction = "vertical"))) +
+    scale_fill_gradient(
+      low = pal[["bg_plot"]],
+      high = pal[["value1"]], # reverse color direction (red = high values)
+      na.value = "tan",
+      labels = scales::percent
+    ) +
 
-  theme(
+    guides(
+      fill = guide_colourbar(
+        barheight = 10,
+        barwidth = .5,
+        theme = theme(legend.direction = "vertical")
+      )
+    ) +
 
-    plot.title = element_text(
-      hjust = 0.5,        # Center the title
-      face = "bold",      # Make it bold
-      size = 20,          # Optional: control font size
-      color = pal[["value1"]]  # Optional: match your existing color theme
-    ),
-    axis.text = element_text(size = 18, color = pal["value1"]),
-    axis.text.x = element_text(angle = 80, vjust = -.4, hjust = -.4),
-    text = element_text(size = 18, color = pal["value1"]),
-    legend.text = element_text(size = 18, color = pal["value1"]),
-    panel.background = ggplot2::element_rect(
-      fill = pal[["bg_plot"]],
-      color = pal[["bg_plot"]]
-    ),
-    plot.background = ggplot2::element_rect(
-      fill = pal[["bg_plot"]],
-      color = pal[["bg_plot"]])) +
+    theme(
+      plot.title = element_text(
+        hjust = 0.5, # Center the title
+        face = "bold", # Make it bold
+        size = 20, # Optional: control font size
+        color = pal[["value1"]] # Optional: match your existing color theme
+      ),
+      axis.text = element_text(size = 18, color = pal["value1"]),
+      axis.text.x = element_text(angle = 80, vjust = -.4, hjust = -.4),
+      text = element_text(size = 18, color = pal["value1"]),
+      legend.text = element_text(size = 18, color = pal["value1"]),
+      panel.background = ggplot2::element_rect(
+        fill = pal[["bg_plot"]],
+        color = pal[["bg_plot"]]
+      ),
+      plot.background = ggplot2::element_rect(
+        fill = pal[["bg_plot"]],
+        color = pal[["bg_plot"]]
+      )
+    ) +
 
-  labs(x = NULL, y = NULL, fill = NULL,
-       title = "% of total West Coast landings by weight\ncaptured on EDC first-receiver forms")
+    labs(
+      x = NULL,
+      y = NULL,
+      fill = NULL,
+      title = "% of total West Coast landings by weight\ncaptured on EDC first-receiver forms"
+    )
 }
 
 
@@ -227,9 +247,11 @@ plot_func <- function(data, lab, group, facet, line = "solid", title = NULL) {
 process_df <- function(df, cs) {
   # list of columns to remove that are not needed
   cols_to_remove <- c(
-    "defl"
+    "DEFL",
+    'unit_lab'
   )
 
+  #browser()
   df |>
     # remove cols if they exist
     dplyr::select(-dplyr::any_of(cols_to_remove)) |> # remove cols if they exist
@@ -260,19 +282,30 @@ process_df <- function(df, cs) {
       )
     ) |>
     dplyr::mutate(
-      Year = as.character(Year)) |>
-    dplyr::rename(`Number of buyers` = number_of_buyers,
-                  `Number of processors` = number_of_processors) |>
+      Year = as.character(Year)
+    ) |>
+    dplyr::rename(
+      `Number of buyers` = number_of_buyers,
+      `Number of processors` = number_of_processors,
+      `Production activity` = production_activity,
+      `Characteristic` = characteristic
+    ) |>
     dplyr::mutate(dplyr::across(
       !contains('Number'),
-      function(x)
+      function(x) {
         ifelse(
           x > 100,
           formatC(x, big.mark = ',', format = 'f', digits = 0),
           formatC(x, format = 'f', digits = 2)
         )
+      }
     )) |>
     dplyr::arrange(desc(Year)) |>
-    dplyr::mutate(dplyr::across(contains('value'), function(x) paste0('$', x))) |>
-    dplyr::mutate(dplyr::across(contains('price'), function(x) paste0('$', x)))
+    dplyr::mutate(dplyr::across(contains('value'), function(x) {
+      paste0('$', x)
+    })) |>
+    dplyr::mutate(dplyr::across(contains('price'), function(x) {
+      paste0('$', x)
+    })) |>
+    dplyr::select(-c('prod_act_cat', 'char_cat'))
 }
