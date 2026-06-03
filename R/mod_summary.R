@@ -10,25 +10,25 @@
 
 # this script dictates the UI and server of the "Summary" tab on the Explore the Data page
 mod_summary_ui <- function(id) {
-  ns <- NS(id)
-  tagList(
-    metric_func1(inputID = ns("metricInput"))
-  )
+    ns <- NS(id)
+    tagList(
+        metric_func1(inputID = ns("metricInput"))
+    )
 }
 
 #' summary Server Functions
 #'
 #' @noRd
 mod_summary_server <- function(id) {
-  moduleServer(id, function(input, output, session) {
-    ns <- session$ns
+    moduleServer(id, function(input, output, session) {
+        ns <- session$ns
 
-    return(reactive({
-      list(
-        metric = input$metricInput
-      )
-    }))
-  })
+        return(reactive({
+            list(
+                metric = input$metricInput
+            )
+        }))
+    })
 }
 
 ## To be copied in the UI

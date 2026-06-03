@@ -44,18 +44,18 @@ rsconnect::writeManifest()
 
 ## In command line.
 rsconnect::deployApp(
-  appName = desc::desc_get_field("purcprod"),
-  appTitle = desc::desc_get_field("purcprod"),
-  appFiles = c(
-    # Add any additional files unique to your app here.
-    "R/",
-    "inst/",
-    "data-raw/",
-    "NAMESPACE",
-    "DESCRIPTION",
-    "app.r"
-  ),
-  appId = rsconnect::deployments(".")$appID,
-  lint = FALSE,
-  forceUpdate = TRUE
+    appName = desc::desc_get_field("purcprod"),
+    appTitle = desc::desc_get_field("purcprod"),
+    appFiles = c(
+        # Add any additional files unique to your app here.
+        "R/",
+        "inst/",
+        "data-raw/",
+        "NAMESPACE",
+        "DESCRIPTION",
+        "app.r"
+    ),
+    appId = rsconnect::deployments(".")$appID,
+    lint = FALSE,
+    forceUpdate = TRUE
 )
