@@ -19,24 +19,24 @@
 ## to change the name in the app_sys() function in app_config.R /!\
 ##
 golem::fill_desc(
-  pkg_name = "purcprod", # The name of the golem package containing the app (typically lowercase, no underscore or periods)
-  pkg_title = "Purchase Production App", # What the Package Does (One Line, Title Case, No Period)
-  pkg_description = "Placeholder for package description.", # What the package does (one paragraph).
-  authors = person(
-    given = "Raymond", # Your First Name
-    family = "Hunter", # Your Last Name
-    email = "raymond.hunter@noaa.gov", # Your email
-    role = "cre" # Your role (here author/creator)
-  ),
-  repo_url = NULL, # The URL of the GitHub repo (optional),
-  pkg_version = "0.0.0.9000", # The version of the package containing the app
-  set_options = TRUE # Set the global golem options
+    pkg_name = "purcprod", # The name of the golem package containing the app (typically lowercase, no underscore or periods)
+    pkg_title = "Purchase Production App", # What the Package Does (One Line, Title Case, No Period)
+    pkg_description = "Placeholder for package description.", # What the package does (one paragraph).
+    authors = person(
+        given = "Raymond", # Your First Name
+        family = "Hunter", # Your Last Name
+        email = "raymond.hunter@noaa.gov", # Your email
+        role = "cre" # Your role (here author/creator)
+    ),
+    repo_url = NULL, # The URL of the GitHub repo (optional),
+    pkg_version = "0.0.0.9000", # The version of the package containing the app
+    set_options = TRUE # Set the global golem options
 )
 
 ## Install the required dev dependencies ----
 golem::install_dev_deps()
 
-Yes ## Create Common Files ----
+## Create Common Files ----
 ## See ?usethis for more information
 usethis::use_mit_license("National Oceanic and Atmospheric Administration") # You can set another license here
 golem::use_readme_rmd(open = FALSE)
@@ -64,8 +64,8 @@ golem::use_utils_server(with_test = TRUE)
 usethis::use_git()
 ## Sets the remote associated with 'name' to 'url'
 usethis::use_git_remote(
-  name = "origin",
-  url = "https://github.nwfsc2.noaa.gov/ESSR/fisheye_purcprod.git"
+    name = "origin",
+    url = "https://github.nwfsc2.noaa.gov/ESSR/fisheye_purcprod.git"
 )
 
 # You're now set! ----
