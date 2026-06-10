@@ -48,39 +48,39 @@ prep_data_fun <- function(date_stamp) {
     line_col <- c(
         # species colors
         "All production" = "black",
-        "Groundfish production" = '#C1052F',
-        "Pacific whiting" = '#D89B2C',
-        "Non-whiting groundfish" = '#C0CB81',
-        "Sablefish" = '#648C1C',
-        "Rockfish" = '#6FB1C9',
-        "Dover sole" = '#001B70',
-        "Petrale sole" = '#595478',
-        "Thornyheads" = '#C0B3B6',
-        "Other groundfish species" = '#B56C97',
-        "Other species production" = '#C1052F',
-        "Crab" = '#D89B2C',
-        "Shrimp" = '#C0CB81',
-        "Salmon" = '#648C1C',
-        "Tuna" = '#6FB1C9',
-        "Coastal pelagics" = '#001B70',
-        "Other shellfish" = '#595478',
-        "Other species" = '#C0B3B6',
+        "Groundfish production" = "#4B0055",
+        "Pacific whiting" = "#411A66",
+        "Non-whiting groundfish" = "#313685",
+        "Sablefish" = "#1F518F",
+        "Rockfish" = "#006C8E",
+        "Dover sole" = "#008785",
+        "Petrale sole" = "#009E6B",
+        "Thornyheads" = "#3BAF45",
+        "Other groundfish species" = "#5D9E00",
+        "Other species production" = "#4B0055",
+        "Crab" = "#411A66",
+        "Shrimp" = "#313685",
+        "Salmon" = "#1F518F",
+        "Tuna" = "#006C8E",
+        "Coastal pelagics" = "#008785",
+        "Other shellfish" = "#009E6B",
+        "Other species" = "#5A6B73",
 
         # state colors
-        "California" = '#001B70',
-        "Washington and Oregon" = '#C1052F',
+        "California" = "#4B0055",
+        "Washington and Oregon" = "#006C8E",
 
         # processor size colors
-        "Small/Medium" = '#005B70',
-        "Large" = '#648C1C',
+        "Small/Medium" = "#4B0055",
+        "Large" = "#006C8E",
 
         # product type colors
-        "All product types" = "#8E6C8A",
-        "Fresh" = "#208AAE",
-        "Frozen" = "#FF9F1C",
-        "Other" = "#9E2B25",
-        "Surimi" = "#1E2B25",
-        "Unprocessed" = "#607744"
+        "All product types" = "#4B0055",
+        "Fresh" = "#2B3C8E",
+        "Frozen" = "#006C8E",
+        "Other" = "#009E6B",
+        "Surimi" = "#5D9E00",
+        "Unprocessed" = "#8DB600"
     )
 
     # line type

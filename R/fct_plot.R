@@ -180,22 +180,21 @@ heat_func <- function() {
 # this function creates line graphs that are used in the "Plot" tab on the "Explore the Data" page
 
 plot_func <- function(data, lab, group, facet, line = "solid", title = NULL) {
-    # return nothing if plot is Null
+    # Base Validation
     validate(
         need(data, "No data available for these selected inputs"),
-        need(
-            nrow(data) > 0,
-            "No data available for these selected inputs"
-        )
+        need(nrow(data) > 0, "No data available for these selected inputs")
     )
+
     # Fill in NAs so that ggplot doesn't connect a line through two points separated by suppressed values
     data <- data |>
-        tidyr::complete(year, !!rlang::sym(group))
-    # ggplot code
-    ggplot2::ggplot(
+        tidyr::complete(year, !!rlang::sym(group), !!rlang::sym(facet))
+
+    # ggplot code (basic plot)
+    plt <- ggplot2::ggplot(
         data,
         ggplot2::aes(
-            x = factor(.data[["year"]]),
+            x = .data[['year']],
             y = .data[["value"]],
             group = .data[[group]]
         )
@@ -217,7 +216,8 @@ plot_func <- function(data, lab, group, facet, line = "solid", title = NULL) {
             x = "Year",
             title = title
         ) +
-        scale_x_discrete(breaks = scales::pretty_breaks()) +
+        scale_x_continuous(breaks = scales::pretty_breaks()) +
+        #scale_x_discrete(breaks = scales::pretty_breaks()) +
         scale_y_continuous(
             breaks = scales::pretty_breaks(),
             limits = c(0, NA)
@@ -243,13 +243,18 @@ plot_func <- function(data, lab, group, facet, line = "solid", title = NULL) {
                 color = pal[["bg_plot"]]
             ),
             panel.spacing = unit(1, "cm", data = NULL) # facet spacing
-        ) +
-        # facet wrap based on the column specified to be faceted in the function
-        ggplot2::facet_wrap(
-            stats::as.formula(base::paste("~", facet)),
-            scales = 'free_y',
-            ncol = 2
         )
+
+    # removes extra NA plot that appears sometimes
+    if (length(unique(data$unit_lab)) > 1) {
+        plt <- plt +
+            ggplot2::facet_wrap(
+                stats::as.formula(base::paste("~", facet)),
+                scales = 'free_y',
+                ncol = 2
+            )
+    }
+    plt
 }
 
 ############################## Data Table render processing ##################################
@@ -318,5 +323,9 @@ process_df <- function(df, cs) {
         dplyr::mutate(dplyr::across(contains('price'), function(x) {
             paste0('$', x)
         })) |>
-        dplyr::select(-c('prod_act_cat', 'char_cat'))
+        dplyr::mutate(dplyr::across(contains('cost'), function(x) {
+            paste0('$', x)
+        })) |>
+        dplyr::select(-c('prod_act_cat', 'char_cat')) |>
+        dplyr::distinct()
 }
